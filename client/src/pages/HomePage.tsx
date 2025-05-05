@@ -13,7 +13,6 @@ function HomePage() {
     const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [showLoginForm, setShowLoginForm] = useState<boolean>(true);
-    const navigate = useNavigate();
 
     // Check if user is already authenticated on component mount
     useEffect(() => {
@@ -25,6 +24,8 @@ function HomePage() {
         
         checkAuth();
     }, []);
+
+    const navigate = useNavigate();
 
     const handleLoginSuccess = () => {
         setIsAuthenticated(true);
@@ -49,7 +50,7 @@ function HomePage() {
     }
 
     return (
-        <div className="flex min-h-screen flex-col items-center bg-slate-500">
+        <div className="flex min-h-screen flex-col items-center bg-slate-800">
             {/* Navbar */}
             <nav className="w-full bg-slate-700 py-4 px-6 shadow-md">
                 <div className="container mx-auto flex items-center justify-between">
@@ -116,22 +117,33 @@ function HomePage() {
                     </div>
                 </div>
             ) : (
-                // Authentication form - now using separate components
-                <div className="flex-grow flex items-center justify-center w-full">
+                // Authentication form - now using the Login component
+                <div className="flex-grow flex flex-col items-center justify-center w-full">
                     {showLoginForm ? (
-                        <Login onLoginSuccess={handleLoginSuccess} />
+                        <div className="w-full max-w-md">
+                            <Login onLoginSuccess={handleLoginSuccess} />
+                            <div className="text-center mt-4">
+                                <button 
+                                    onClick={() => setShowLoginForm(false)}
+                                    className="text-blue-300 hover:text-blue-200 text-sm"
+                                >
+                                    Don't have an account? Sign up
+                                </button>
+                            </div>
+                        </div>
                     ) : (
-                        <Signup onSignupSuccess={handleSignupSuccess} />
+                        <div className="w-full max-w-md">
+                            <Signup onSignupSuccess={handleSignupSuccess} />
+                            <div className="text-center mt-4">
+                                <button 
+                                    onClick={() => setShowLoginForm(true)}
+                                    className="text-blue-300 hover:text-blue-200 text-sm"
+                                >
+                                    Already have an account? Log in
+                                </button>
+                            </div>
+                        </div>
                     )}
-                    
-                    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2">
-                        <button
-                            onClick={() => setShowLoginForm(!showLoginForm)}
-                            className="text-white bg-slate-700 hover:bg-slate-600 px-4 py-2 rounded-md transition-colors"
-                        >
-                            {showLoginForm ? "Need an account? Sign up" : "Already have an account? Login"}
-                        </button>
-                    </div>
                 </div>
             )}
             

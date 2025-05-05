@@ -9,7 +9,7 @@ const ChallengePage: React.FC = () => {
   const { selectedChallenge } = useChallenge();
 
   return (
-    <div className="flex min-h-screen flex-col items-center bg-slate-500">
+    <div className="flex min-h-screen flex-col items-center bg-slate-800">
       {/* Navbar */}
       <nav className="w-full bg-slate-700 py-4 px-6 shadow-md">
         <div className="container mx-auto flex items-center justify-between">

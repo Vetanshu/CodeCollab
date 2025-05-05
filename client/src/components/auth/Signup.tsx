@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { FaCode } from "react-icons/fa6";
+import { FaCode, FaUser, FaEnvelope, FaLock, FaShieldCat, FaEye, FaEyeSlash } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import authService from "@/services/authService";
@@ -12,6 +12,8 @@ interface SignupProps {
 function Signup({ onSignupSuccess }: SignupProps) {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState<boolean>(false);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -25,6 +27,14 @@ function Signup({ onSignupSuccess }: SignupProps) {
       ...formData,
       [name]: value
     });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -64,105 +74,163 @@ function Signup({ onSignupSuccess }: SignupProps) {
       setIsLoading(false);
     }
   };
+  
   return (
-    <div className="flex items-center justify-center min-h-screen">
-    <div className="bg-slate-700 p-8 rounded-lg shadow-lg w-full max-w-md">
-      <div className="flex justify-center mb-6">
-        <FaCode className="text-blue-400 text-4xl" />
-      </div>
-      <h2 className="text-2xl font-bold text-white text-center mb-6">
-        Create an Account
-      </h2>
-      
-      <form onSubmit={handleSubmit}>
-        <div className="mb-4">
-          <label htmlFor="username" className="block text-sm font-medium text-slate-300 mb-1">
-            Username
-          </label>
-          <input
-            type="text"
-            id="username"
-            name="username"
-            value={formData.username}
-            onChange={handleInputChange}
-            className="w-full px-3 py-2 bg-slate-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
+    <div className="flex flex-col min-h-screen bg-slate-800">
+      {/* Navbar */}
+      <nav className="w-full bg-slate-700 py-4 px-6 shadow-md">
+        <div className="container mx-auto flex items-center justify-between">
+          <div className="flex items-center">
+            <FaCode className="text-blue-400 text-2xl mr-2" />
+            <span className="text-white text-xl font-bold">CodeCollab</span>
+          </div>
+          <div className="flex space-x-6">
+            <Link 
+              to="/" 
+              className="text-white hover:text-blue-300 transition-colors font-medium"
+            >
+              Home
+            </Link>
+            <Link 
+              to="/challenges" 
+              className="text-white hover:text-blue-300 transition-colors font-medium"
+            >
+              Challenges
+            </Link>
+            <Link 
+              to="/about" 
+              className="text-white hover:text-blue-300 transition-colors font-medium"
+            >
+              About
+            </Link>
+          </div>
         </div>
-        
-        <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-slate-300 mb-1">
-            Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            className="w-full px-3 py-2 bg-slate-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-medium text-slate-300 mb-1">
-            Password
-          </label>
-          <input
-            type="password"
-            id="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange}
-            className="w-full px-3 py-2 bg-slate-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        
-        <div className="mb-6">
-          <label htmlFor="confirmPassword" className="block text-sm font-medium text-slate-300 mb-1">
-            Confirm Password
-          </label>
-          <input
-            type="password"
-            id="confirmPassword"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleInputChange}
-            className="w-full px-3 py-2 bg-slate-600 text-white rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-        
-        <button
-          type="submit"
-          disabled={isLoading}
-          className="w-full bg-blue-600 hover:bg-blue-500 text-white py-2 rounded-md transition-colors disabled:bg-blue-800 disabled:cursor-not-allowed flex items-center justify-center"
-        >
-          {isLoading ? (
-            <>
-              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-              </svg>
-              Processing...
-            </>
-          ) : 'Sign Up'}
-        </button>
-      </form>
-      
-      <div className="mt-4 text-center">
-        <Link
-          to="/login"
-          className="text-blue-300 hover:text-blue-200 text-sm"
-        >
-          Already have an account? Login
-        </Link>
-      </div>
-    </div>
-    </div>
-  );
-}
+      </nav>
 
-export default Signup;
+      {/* Signup Form */}
+      <div className="flex items-center justify-center flex-grow">
+        <div className="bg-gradient-to-br from-slate-800 to-slate-700 p-8 rounded-xl shadow-2xl w-full max-w-md border border-slate-600">
+          <div className="flex justify-center mb-8">
+            <div className="bg-blue-500 p-4 rounded-full shadow-lg">
+              <FaCode className="text-white text-4xl" />
+            </div>
+          </div>
+          <h2 className="text-3xl font-bold text-white text-center mb-6">
+            Join CodeCollab
+          </h2>
+          <p className="text-slate-300 text-center mb-8">
+            Create an account to start collaborating on code
+          </p>
+          
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <FaUser className="text-slate-400" />
+              </div>
+              <input
+                type="text"
+                id="username"
+                name="username"
+                value={formData.username}
+                onChange={handleInputChange}
+                placeholder="Username"
+                className="w-full pl-10 pr-3 py-3 bg-slate-600/50 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-500 transition-all"
+                required
+              />
+            </div>
+            
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <FaEnvelope className="text-slate-400" />
+              </div>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                placeholder="Email address"
+                className="w-full pl-10 pr-3 py-3 bg-slate-600/50 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-500 transition-all"
+                required
+              />
+            </div>
+            
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <FaLock className="text-slate-400" />
+              </div>
+              <input
+                type={showPassword ? "text" : "password"}
+                id="password"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
+                placeholder="Password"
+                className="w-full pl-10 pr-10 py-3 bg-slate-600/50 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-500 transition-all"
+                required
+              />
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-300 transition-colors"
+              >
+                {showPassword ? <FaEyeSlash /> : <FaEye />}
+              </button>
+            </div>
+            
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <FaShieldCat className="text-slate-400" />
+              </div>
+              <input
+                                type={showConfirmPassword ? "text" : "password"}
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                value={formData.confirmPassword}
+                                onChange={handleInputChange}
+                                placeholder="Confirm password"
+                                className="w-full pl-10 pr-10 py-3 bg-slate-600/50 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 border border-slate-500 transition-all"
+                                required
+                              />
+                              <button
+                                type="button"
+                                onClick={toggleConfirmPasswordVisibility}
+                                className="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-300 transition-colors"
+                              >
+                                {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                              </button>
+                            </div>
+                            
+                            <button
+                              type="submit"
+                              disabled={isLoading}
+                              className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-blue-400 text-white py-3 rounded-lg transition-all duration-300 font-medium text-lg shadow-lg disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center mt-6"
+                            >
+                              {isLoading ? (
+                                <>
+                                  <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                  </svg>
+                                  Creating account...
+                                </>
+                              ) : 'Create Account'}
+                            </button>
+                          </form>
+                          
+                          <div className="mt-8 text-center">
+                            <Link
+                              to="/login"
+                              className="text-blue-400 hover:text-blue-300 text-sm font-medium transition-colors"
+                            >
+                              Already have an account? <span className="underline">Sign in</span>
+                            </Link>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+                
+                export default Signup;
+                
