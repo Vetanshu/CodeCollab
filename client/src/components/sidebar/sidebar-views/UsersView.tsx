@@ -16,12 +16,15 @@ function UsersView() {
     const { socket } = useSocket()
 
     const copyURL = async () => {
+        // Extract the room ID from the URL
         const url = window.location.href
+        const roomId = url.split('/').pop() // Gets the last segment of the URL which is the room ID
+        
         try {
-            await navigator.clipboard.writeText(url)
-            toast.success("URL copied to clipboard")
+            await navigator.clipboard.writeText(roomId || '')
+            toast.success("Room ID copied to clipboard")
         } catch (error) {
-            toast.error("Unable to copy URL to clipboard")
+            toast.error("Unable to copy Room ID to clipboard")
             console.log(error)
         }
     }

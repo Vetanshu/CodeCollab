@@ -69,7 +69,7 @@ function Login({ onLoginSuccess }: LoginProps) {
             <FaCode className="text-blue-400 text-2xl mr-2" />
             <span className="text-white text-xl font-bold">CodeCollab</span>
           </div>
-          <div className="flex space-x-6">
+          <div className="flex space-x-6 items-center">
             <Link 
               to="/" 
               className="text-white hover:text-blue-300 transition-colors font-medium"
@@ -88,6 +88,7 @@ function Login({ onLoginSuccess }: LoginProps) {
             >
               About
             </Link>
+            {/* No profile dropdown here since user is not authenticated */}
           </div>
         </div>
       </nav>

@@ -8,7 +8,7 @@ import { ACTIVITY_STATE } from "@/types/app"
 import { SocketEvent } from "@/types/socket"
 import { VIEWS } from "@/types/view"
 import { IoCodeSlash } from "react-icons/io5"
-import { MdOutlineDraw } from "react-icons/md"
+import { HiPencilSquare } from "react-icons/hi2";
 import { AiOutlineHome } from "react-icons/ai"
 import { useNavigate } from "react-router-dom"
 import cn from "classnames"
@@ -122,7 +122,7 @@ function Sidebar() {
                         }
                     >
                         {activityState === ACTIVITY_STATE.CODING ? (
-                            <MdOutlineDraw size={30} />
+                            <HiPencilSquare size={30} />
                         ) : (
                             <IoCodeSlash size={30} />
                         )}

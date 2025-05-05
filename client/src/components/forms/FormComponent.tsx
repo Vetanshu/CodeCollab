@@ -7,6 +7,7 @@ import { toast } from "react-hot-toast"
 import { useLocation, useNavigate } from "react-router-dom"
 import { v4 as uuidv4 } from "uuid"
 import { FaCode } from "react-icons/fa6";
+import sessionService from '@/services/sessionService';
 
 const FormComponent = () => {
     const location = useLocation()
@@ -52,6 +53,21 @@ const FormComponent = () => {
         toast.loading("Joining room...")
         setStatus(USER_STATUS.ATTEMPTING_JOIN)
         socket.emit(SocketEvent.JOIN_REQUEST, currentUser)
+        try {
+            const sessionId = uuidv4();
+            sessionService.saveSession({
+                id: sessionId,
+                name: currentUser.username || 'Untitled Project',
+                content: {
+                    projectName: currentUser.username,
+                    language: 'javascript',
+                    timestamp: new Date().toISOString()
+                }
+            });
+        } catch (error) {
+            console.error('Error saving session:', error);
+            toast.error('Failed to save session');
+        }
     }
 
     useEffect(() => {
