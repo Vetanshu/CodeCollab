@@ -15,6 +15,8 @@ import cn from "classnames"
 import { Tooltip } from 'react-tooltip'
 import { useState } from 'react'
 import { tooltipStyles } from "./tooltipStyles"
+import { FaVideo } from "react-icons/fa";
+import VideoView from "@/components/video/VideoView";
 
 function Sidebar() {
     const {
@@ -22,6 +24,7 @@ function Sidebar() {
         isSidebarOpen,
         viewComponents,
         viewIcons,
+        setActiveView,
         setIsSidebarOpen,
     } = useViews()
     const { minHeightReached } = useResponsive()
@@ -107,6 +110,36 @@ function Sidebar() {
                     viewName={VIEWS.SETTINGS}
                     icon={viewIcons[VIEWS.SETTINGS]}
                 />
+                
+                
+                {/* Video Call Button */}
+                <div className="flex h-fit items-center justify-center">
+                    <button
+                        className="justify-center flex items-center rounded p-1.5 transition-colors duration-200 ease-in-out hover:bg-[#3D404A]"
+                        onClick={() => {
+                            setShowTooltip(false);
+                            setActiveView(VIEWS.VIDEO);
+                            setIsSidebarOpen(true);
+                        }}
+                        onMouseEnter={() => setShowTooltip(true)}
+                        data-tooltip-id="video-tooltip"
+                        data-tooltip-content="Video Call"
+                    >
+                        <FaVideo size={24} />
+                    </button>
+                    {showTooltip && (
+                        <Tooltip
+                            id="video-tooltip"
+                            place="right"
+                            offset={15}
+                            className="!z-50"
+                            style={tooltipStyles}
+                            noArrow={false}
+                            positionStrategy="fixed"
+                            float={true}
+                        />
+                    )}
+                </div>
 
                 {/* Button to change activity state coding or drawing */}
                 <div className="flex h-fit items-center justify-center">

@@ -26,6 +26,16 @@ enum SocketEvent {
     REQUEST_DRAWING = "request-drawing",
     SYNC_DRAWING = "sync-drawing",
     DRAWING_UPDATE = "drawing-update",
+    JOIN = "join",
+    JOINED = "joined",
+    DISCONNECTED = "disconnected",
+    SYNC_CODE = "sync-code",
+    CODE_CHANGE = "code-change",
+    VIDEO_CALL_JOIN = "video-call-join",
+    VIDEO_CALL_LEAVE = "video-call-leave",
+    VIDEO_OFFER = "video-offer",
+    VIDEO_ANSWER = "video-answer",
+    NEW_ICE_CANDIDATE = "new-ice-candidate"
 }
 
 interface SocketContext {

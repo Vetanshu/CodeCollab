@@ -4,6 +4,7 @@ enum USER_CONNECTION_STATUS {
 }
 
 interface User {
+    _id: any
     username: string
     roomId: string
 }

@@ -1,12 +1,13 @@
-import { ReactNode } from "react"
-import { AppContextProvider } from "./AppContext.js"
-import { ChatContextProvider } from "./ChatContext.jsx"
-import { FileContextProvider } from "./FileContext.jsx"
-import { RunCodeContextProvider } from "./RunCodeContext.jsx"
-import { SettingContextProvider } from "./SettingContext.jsx"
-import { SocketProvider } from "./SocketContext.jsx"
-import { ViewContextProvider } from "./ViewContext.js"
-import { CopilotContextProvider } from "./CopilotContext.js"
+import { ReactNode } from "react";
+import { AppContextProvider } from "./AppContext";
+import { ChatContextProvider } from "./ChatContext";
+import { FileContextProvider } from "./FileContext";
+import { RunCodeContextProvider } from "./RunCodeContext";
+import { SettingContextProvider } from "./SettingContext";
+import { SocketProvider } from "./SocketContext";
+import { ViewContextProvider } from "./ViewContext";
+import { CopilotContextProvider } from "./CopilotContext";
+import { VideoContextProvider } from "./VideoContext";
 
 function AppProvider({ children }: { children: ReactNode }) {
     return (
@@ -15,19 +16,21 @@ function AppProvider({ children }: { children: ReactNode }) {
                 <SettingContextProvider>
                     <ViewContextProvider>
                         <FileContextProvider>
-                            <CopilotContextProvider>
-                                <RunCodeContextProvider>
-                                    <ChatContextProvider>
-                                        {children}
-                                    </ChatContextProvider>
-                                </RunCodeContextProvider>
-                            </CopilotContextProvider>
+                            <ChatContextProvider>
+                                <VideoContextProvider>
+                                    <CopilotContextProvider>
+                                        <RunCodeContextProvider>
+                                            {children}
+                                        </RunCodeContextProvider>
+                                    </CopilotContextProvider>
+                                </VideoContextProvider>
+                            </ChatContextProvider>
                         </FileContextProvider>
                     </ViewContextProvider>
                 </SettingContextProvider>
             </SocketProvider>
         </AppContextProvider>
-    )
+    );
 }
 
-export default AppProvider
+export default AppProvider;

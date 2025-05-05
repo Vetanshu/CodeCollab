@@ -277,8 +277,58 @@ io.on("connection", (socket) => {
 			snapshot,
 		})
 	})
-})
 
+	// Handle user joining video call
+	socket.on("video-call-join", ({ username }) => {
+		const roomId = getRoomId(socket.id);
+		if (!roomId) return;
+		
+		// Notify all users in the room that a new user joined the video call
+		socket.to(roomId).emit("video-call-join", {
+			userId: socket.id,
+			username
+		});
+	});
+
+	// Handle user leaving video call
+	socket.on("video-call-leave", ({ username }) => {
+		const roomId = getRoomId(socket.id);
+		if (!roomId) return;
+		
+		// Notify all users in the room that a user left the video call
+		socket.to(roomId).emit("video-call-leave", {
+			userId: socket.id,
+			username
+		});
+	});
+
+	// Handle video offer
+	socket.on("video-offer", ({ offer, targetUserId }) => {
+		// Forward the offer to the target user
+		io.to(targetUserId).emit("video-offer", {
+			offer,
+			userId: socket.id
+		});
+	});
+
+	// Handle video answer
+	socket.on("video-answer", ({ answer, targetUserId }) => {
+		// Forward the answer to the target user
+		io.to(targetUserId).emit("video-answer", {
+			answer,
+			userId: socket.id
+		});
+	});
+
+	// Handle ICE candidates
+	socket.on("new-ice-candidate", ({ candidate, targetUserId }) => {
+		// Forward the ICE candidate to the target user
+		io.to(targetUserId).emit("new-ice-candidate", {
+			candidate,
+			userId: socket.id
+		});
+	});
+})
 const PORT = process.env.PORT 
 
 app.get("/", (req: Request, res: Response) => {

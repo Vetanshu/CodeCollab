@@ -10,6 +10,8 @@ import { ReactNode, createContext, useContext, useState } from "react"
 import { IoSettingsOutline } from "react-icons/io5"
 import { LuFiles, LuSparkles } from "react-icons/lu"
 import { PiChats, PiPlay, PiUsers } from "react-icons/pi"
+import { FaVideo } from "react-icons/fa6"
+import VideoView from "@/components/video/VideoView"
 
 const ViewContext = createContext<ViewContextType | null>(null)
 
@@ -25,6 +27,14 @@ function ViewContextProvider({ children }: { children: ReactNode }) {
     const { isMobile } = useWindowDimensions()
     const [activeView, setActiveView] = useState<VIEWS>(VIEWS.FILES)
     const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(!isMobile)
+    const PlaceholderVideoView = () => (
+        <div className="flex max-h-full min-h-[400px] w-full flex-col gap-2 p-4">
+            <h1 className="view-title">Video Call</h1>
+            <div className="flex-grow flex flex-col items-center justify-center bg-darkHover rounded-md">
+                <p className="text-white">Video call functionality is coming soon!</p>
+            </div>
+        </div>
+    )
     const [viewComponents] = useState({
         [VIEWS.FILES]: <FilesView />,
         [VIEWS.CLIENTS]: <UsersView />,
@@ -32,6 +42,7 @@ function ViewContextProvider({ children }: { children: ReactNode }) {
         [VIEWS.COPILOT]: <CopilotView />,
         [VIEWS.CHATS]: <ChatsView />,
         [VIEWS.RUN]: <RunView />,
+        [VIEWS.VIDEO]: <VideoView />,
     })
     const [viewIcons] = useState({
         [VIEWS.FILES]: <LuFiles size={28} />,
@@ -40,6 +51,7 @@ function ViewContextProvider({ children }: { children: ReactNode }) {
         [VIEWS.CHATS]: <PiChats size={30} />,
         [VIEWS.COPILOT]: <LuSparkles size={28} />,
         [VIEWS.RUN]: <PiPlay size={28} />,
+        [VIEWS.VIDEO]: <FaVideo />,
     })
 
     return (
