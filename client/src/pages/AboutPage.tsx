@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaCode, FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa6";
+import { FaCode } from "react-icons/fa6";
 import { FaLaptopCode, FaUsers, FaDownload, FaComments, FaPencilRuler } from "react-icons/fa";
 import { SiSocketdotio, SiReact, SiTypescript, SiTailwindcss, SiNodedotjs, SiExpress } from "react-icons/si";
 import authService from "@/services/authService";
@@ -70,7 +70,8 @@ const AboutPage: React.FC = () => {
       />
 
          {/* Hero Section */}
-         <div className="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-10 text-center">
+         <div className="w-full bg-gradient-to-r from-blue-600 to-purple-600 py-10adhe
+          text-center">
         <div className="container mx-auto px-4">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">About CodeCollab</h1>
           <p className="text-xl text-white/90 max-w-3xl mx-auto">
