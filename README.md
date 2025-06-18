@@ -3,9 +3,30 @@
 
 A collaborative, real-time code editor platform where developers can code together seamlessly. Built with modern web technologies to provide an intuitive and powerful collaborative coding experience.
 
-![CodeCollab Banner](https://via.placeholder.com/800x400/1e293b/60a5fa?text=CodeCollab+-+Real-time+Collaborative+Coding)
+
 
 ## ✨ Features
+## Home Page
+<img width="1644" alt="Screenshot 2025-06-18 at 3 22 13 PM" src="https://github.com/user-attachments/assets/c448d1af-e237-4c03-b4cf-ae0b9ab4c285" />
+
+## Sign up/ Login Page
+<img width="1636" alt="Screenshot 2025-06-18 at 3 41 58 PM" src="https://github.com/user-attachments/assets/d1f66906-6ba3-45e9-a3cf-e9b491527578" />
+
+## Code Space
+<img width="1655" alt="Code Space" src="https://github.com/user-attachments/assets/4faac5ba-6c06-45ca-8055-a3f6f6d91ee6" />
+
+## Chat Space
+<img width="1469" alt="Chat Space" src="https://github.com/user-attachments/assets/ee656edd-a32f-402e-9353-66ceee69781f" />
+
+## White Board
+<img width="1664" alt="White Board" src="https://github.com/user-attachments/assets/6d9141a8-b9a0-44bc-acb6-36993e952dba" />
+
+## Copilot Space
+<img width="1638" alt="Copilot Space" src="https://github.com/user-attachments/assets/e40c28f8-bfa6-4138-b9f1-96d2f250e9af" />
+
+## User Space
+<img width="1663" alt="User Space" src="https://github.com/user-attachments/assets/32709e7b-fba3-4168-bf66-4e43343e8b73" />
+
 
 ### 🤝 Real-time Collaboration
 - **Multi-user Code Editing**: Multiple developers can edit code simultaneously across different files
